@@ -148,11 +148,13 @@ function openInvoiceForm(existing){
 
 function previewInvoice(inv){
   const m = openModal({ title:`Preview · ${inv.number||""}`, icon:"visibility", wide:true });
+  const SCALE = 0.62;
   const node = buildInvoiceNode(inv);
-  node.style.transform = "scale(.62)"; node.style.transformOrigin = "top left";
-  const holder = el("div", { style:"height:700px;overflow:auto;background:#ddd2c2;border-radius:12px" });
-  const inner = el("div", { style:"width:794px;height:1123px" }); inner.append(node);
-  inner.style.transform="scale(.62)"; inner.style.transformOrigin="top left";
+  node.style.transformOrigin = "top left";
+  node.style.transform = `scale(${SCALE})`;
+  const inner = el("div", { style:`width:${Math.round(794*SCALE)}px;height:${Math.round(1123*SCALE)}px;flex:none` });
+  inner.append(node);
+  const holder = el("div", { style:"max-height:70dvh;overflow:auto;background:#ddd2c2;border-radius:12px;display:flex;justify-content:center;padding:16px" });
   holder.append(inner); m.body.append(holder);
   m.foot.innerHTML = `<button class="btn btn-ghost" data-x="c">Close</button><button class="btn btn-primary" data-x="dl">${icon("download")} Download PDF</button>`;
   m.foot.querySelector('[data-x="c"]').onclick = m.close;
