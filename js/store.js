@@ -36,7 +36,8 @@ export const store = {
   list(coll){ return db[coll] || []; },
   get(coll, id){ return (db[coll]||[]).find(x => x.id === id) || null; },
   add(coll, obj){
-    const item = { id: obj.id || uid(coll[0]), ...obj };
+    // id LAST so a stray `id:undefined` on obj can't clobber the generated id
+    const item = { ...obj, id: obj.id || uid(coll[0]) };
     db[coll].unshift(item); emit(); return item;
   },
   update(coll, id, patch){
