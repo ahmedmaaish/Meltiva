@@ -1,0 +1,10 @@
+# Working / private files — never publish
+_excel_dump.txt
+meltiva-backup*.json
+*.xlsx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
